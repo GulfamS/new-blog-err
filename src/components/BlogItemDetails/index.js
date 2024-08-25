@@ -4,7 +4,7 @@ import {Component} from 'react'
 import './index.css'
 
 class BlogItemDetails extends Component {
-  state = {blogData: {}}
+  state = {blogsData: {}}
 
   componentDidMount() {
     this.getBogItemData()
@@ -24,12 +24,12 @@ class BlogItemDetails extends Component {
       topic: data.topic,
       author: data.author,
     }
-    this.setState({blogData: updatedData})
+    this.setState({blogsData: updatedData})
   }
 
   renderBlogItemDetails = () => {
-    const {blogData} = this.state
-    const {title, imageUrl, content, avatarUrl, author} = blogData
+    const {blogsData} = this.state
+    const {title, imageUrl, content, avatarUrl, author} = blogsData
     return (
       <div className="blog-info">
         <h2 className="blog-details-title">{title}</h2>
