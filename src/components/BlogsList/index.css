@@ -1,0 +1,11 @@
+.blogs-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.load{
+    align-self: center;
+    padding-top: 50%;
+}

@@ -1,0 +1,28 @@
+.nav-header {
+    background-image: url("https://t4.ftcdn.net/jpg/02/47/84/83/360_F_247848348_c9xNhBpQ2aAS4UuSkz52n3BaeY6bXhmz.jpg");
+    height: 30vh;
+    width: 100%;
+    background-size: cover;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-header{
+        height: 20vh;
+    }
+}
+
+.header-heading {
+    margin-left: 30px;
+    font-family: Bree Serif;
+    font-size: 50px;
+}
+
+@media screen and (max-width: 768px) {
+    .header-heading{
+        font-size: 30px;
+    }
+}
