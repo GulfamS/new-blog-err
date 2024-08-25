@@ -5,7 +5,7 @@ const BlogItem = props => {
   const {blogsData} = props
   const {id, author, publishedAt, urlToImage, title} = blogsData
   return (
-    <Link to={`/blogs/${id}`}>
+    <Link to={`/blogs/${id}`} className="blog-item-link">
     <div className="blog-item">
       <div className="author-publish-container">
         <p className="author">By {author}</p>
@@ -21,3 +21,4 @@ const BlogItem = props => {
 };
 
 export default BlogItem;
+
