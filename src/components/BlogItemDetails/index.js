@@ -1,69 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import './index.css';
 
-const BlogItemDetails = () => {
-  const { id } = useParams();
-  const [blogData, setBlogData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+import {Component} from 'react'
 
-  useEffect(() => {
-    const getBlogItemData = async () => {
-      try {
-        const response = await fetch(
-          `https://newsapi.org/v2/top-headlines?${id}sources=techcrunch&apiKey=0dfa7c6878a84539b0d725cc2cf54f9b`
-        );
+import './index.css'
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+class BlogItemDetails extends Component {
+  state = {blogData: {}}
 
-        const data = await response.json();
-        const article = data.articles.find((article) => article.id === id);
-
-        if (article) {
-          setBlogData(article);
-        } else {
-          setError('Blog item not found');
-        }
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getBlogItemData();
-  }, [id]);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
+  componentDidMount() {
+    this.getBogItemData()
   }
 
-  if (error) {
-    return <p>Error: {error}</p>;
+  getBogItemData = async () => {
+    const {match} = this.props
+    const {params} = match
+    const {id} = params
+    const response = await fetch(`https://newsapi.org/v2/top-headlines?${id}sources=techcrunch&apiKey=0dfa7c6878a84539b0d725cc2cf54f9b`)
+    const data = await response.json()
+    const updatedData = {
+      title: data.title,
+      imageUrl: data.image_url,
+      awatarUrl: data.awatar_url,
+      content: data.content,
+      topic: data.topic,
+      author: data.author,
+    }
+    this.setState({blogData: updatedData})
   }
 
-  if (!blogData) {
-    return <p>No blog data available</p>;
-  }
+  renderBlogItemDetails = () => {
+    const {blogData} = this.state
+    const {title, imageUrl, content, avatarUrl, author} = blogData
+    return (
+      <div className="blog-info">
+        <h2 className="blog-details-title">{title}</h2>
 
-  const { title, urlToImage, content, author, description, publishedAt } = blogData;
+        <div className="author-details">
+          <img className="author-pic" src={avatarUrl} alt={author} />
+          <p className="details-author-name">{author}</p>
+        </div>
 
-  return (
-    <div className="blog-info">
-      <p className="details-author-name">By {author}</p>
-      <p className="published">{publishedAt}</p>
-      <img className="blog-image" src={urlToImage} alt={title} />
-      <h2 className="blog-details-title">{title}</h2>
-      <div className="author-details">
-        <p className="description">{description}</p>
+        <img className="blog-image" src={imageUrl} alt={title} />
         <p className="blog-content">{content}</p>
       </div>
-    </div>
-  );
-};
+    )
+  }
 
-export default BlogItemDetails;
+  render() {
+    return <div className="blog-container">{this.renderBlogItemDetails()}</div>
+  }
+}
+
+export default BlogItemDetails
+
 
