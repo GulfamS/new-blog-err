@@ -18,10 +18,10 @@ class BlogItemDetails extends Component {
     const data = await response.json()
     const updatedData = {
       title: data.title,
-      imageUrl: data.image_url,
-      awatarUrl: data.awatar_url,
+      urlToImage: data.url_to_image,
+      description:data.description, 
       content: data.content,
-      topic: data.topic,
+      publishedAt: data.published_at,
       author: data.author,
     }
     this.setState({blogsData: updatedData})
@@ -29,17 +29,15 @@ class BlogItemDetails extends Component {
 
   renderBlogItemDetails = () => {
     const {blogsData} = this.state
-    const {title, imageUrl, content, avatarUrl, author} = blogsData
+    const {author, publishedAt, urlToImage, title, description, content} = blogsData
     return (
       <div className="blog-info">
-        <h2 className="blog-details-title">{title}</h2>
-
-        <div className="author-details">
-          <img className="author-pic" src={avatarUrl} alt={author} />
-          <p className="details-author-name">{author}</p>
+        <div>
+         <p className='author'>{author}</p>
+         <p className='publish'>{publishedAt}</p>
         </div>
-
-        <img className="blog-image" src={imageUrl} alt={title} />
+         <img src={urlToImage} alt={title} className='image'/>
+         <p className='description'>{description}</p>
         <p className="blog-content">{content}</p>
       </div>
     )
